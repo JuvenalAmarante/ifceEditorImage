@@ -1,4 +1,4 @@
 # ifceEditorImage
 
 ## Fazer
-## [ ]Procurar com urgência como transformar a imagem em mapa de bit em C!!!!!
+[ ] Procurar com urgência como transformar a imagem em mapa de bit em C!!!!!
