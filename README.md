@@ -8,3 +8,4 @@
  
  ## Feito
 - [X] Criação do arquivo de código fonte e estrura
+- [X] Inicio de testes com edição de imagens
