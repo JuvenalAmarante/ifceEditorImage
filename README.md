@@ -1,4 +1,4 @@
-**codigo.c**
+**Código fonte: codigo.c**
 
 # ifceEditorImage
 
