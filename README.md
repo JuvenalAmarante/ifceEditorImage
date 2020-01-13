@@ -4,7 +4,6 @@
 
 ## Fazer
  - [ ] **Procurar com urgência como transformar a imagem em mapa de bit em C!!!!!**
-
  - [ ] Espelhamento Horizontal
  - [ ] Espelhamento Vertical
  - [ ] Giro 90° anti-horário
