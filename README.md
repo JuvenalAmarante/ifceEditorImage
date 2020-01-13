@@ -11,6 +11,7 @@
  - [ ] Giro 90° anti-horário
  - [ ] Giro 90° horário
  - [ ] Filtro escala de cinza
+ - [ ] Relatório
  
  ## Fazendo
  
