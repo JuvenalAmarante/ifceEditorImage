@@ -4,7 +4,7 @@
 
 ## Fazer
  - [ ] **Procurar com urgência como transformar a imagem em mapa de bit em C!!!!!**
- - [ ] Fazer a concatenação de nomeArquivo e .extensão
+
  - [ ] Espelhamento Horizontal
  - [ ] Espelhamento Vertical
  - [ ] Giro 90° anti-horário
@@ -13,7 +13,7 @@
  
  ## Fazendo
   - [ ] Relatório
-  - [ ] Menu do usuário
+  - [ ] Menu do usuário **(Verificar exceção de externsões)**
 
  
  ## Feito
@@ -21,6 +21,6 @@
 - [X] Inicio de testes com edição de imagens
 - [X] Criação da funções init (Tratamento de erro em arquivo)
 - [X] Criação da função copiar
-
+- [x] Fazer a concatenação de nomeArquivo e .extensão
 
 
