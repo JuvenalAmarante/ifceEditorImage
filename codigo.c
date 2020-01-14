@@ -1,16 +1,16 @@
 // -------> Bibliotecas
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
-
-// -------> Dimensões da imagem
+// -------> DimensÃµes da imagem
 #define ALTURA 0
 #define LARGURA 0
 
 // Ponteiro para arquivo
   FILE *img1;
 
-//-------> Definisão das funções 
+//-------> DefiniÃ§Ã£o das funÃ§Ãµes 
 void init(FILE *img1);
 void copiarImg(FILE *img1, char nome[]);
 
@@ -20,30 +20,26 @@ void girarHorizontal();
 void girarVertical();
 void filtro();
 
-//----------> Função main
+//----------> FunÃ§Ã£o main
 int main(void){
-  char nome[100];
-  char copia[100], continua;
-  short int op, control = 0;
+	setlocale(LC_ALL, "Portuguese");
+	char nome[100];
+	char copia[100], continua;
+	short int escolha, control = 0;
 
-  while(control == 0){
-    printf("Olá, o que deseja fazer?");
-    printf("\n1) Gerar copia da imagem;");
-    printf("\n2) Rotacionar sentido horario;");
-    printf("\n3) Rotacionar sentido anti-horario;");
-    printf("\n4) Inverter verticalmente;");
-    printf("\n5) Inverter horizontalmente;");
-    printf("\n6) Filtro escala de cinza.\n");
-
-
-    scanf("%hi", &op);
-
-    switch(op){
+	while(1){
+	 printf("Olá, o que deseja fazer?\n\n[1] - Gerar cópia da imagem\n[2] - Rotacionar sentido horário\n[3] - Rotacionar sentido anti-horáio\n[4] - Inverter verticalmente\n[5] - Inverter horizontalmente\n[6] - Filtro escala de cinza\n[0] - Encerrar aplicação\n\n>>> ");
+	 scanf("%hi", &escolha);
+    
+    switch(escolha){
+      case 0:
+        printf("\nObrigado por utilizar o programa! ^^");
+        exit(0);
       case 1:
-        printf("\nDigite o nome da imagem:");
+        printf("\nDigite o nome da imagem: ");
         scanf("%s", nome);
 
-        printf("\nDigite o nome da copia:");
+        printf("\nDigite o nome da cópia: ");
         scanf("%s", copia);
         img1 = fopen(nome, "r+");
         init(img1);
@@ -67,24 +63,14 @@ int main(void){
         break;
 
         default:
-          printf("\n Opção inválida!");
-          exit(0);
+          printf("\nOpção inválida, tente novamente!\n\n");
           break;
-      }
-    
-    getchar();
-    printf("\nDeseja fazer outra operação? (s/n)");
-    scanf("\n%c", &continua);
-
-    if(!(continua == 83 || continua == 115)){
-       printf("\nObrigado por utilizar o programa! ^^");
-        control = 1;
       }
  }
     
 }
 
-//-----> Função para verificar erros na inicialização
+//-----> FunÃ§Ã£o para verificar erros na inicializaÃ§Ã£o
 
 void init(FILE *img1){
   if(img1 == NULL){
@@ -94,7 +80,7 @@ void init(FILE *img1){
 }
 
 
-// Função copiar imagem 
+// FunÃ§Ã£o copiar imagem 
 void copiarImg(FILE *img1 , char nome[]){
 //------> Arquivo c
   FILE *img2 = fopen(nome, "w+");
