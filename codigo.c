@@ -3,14 +3,14 @@
 #include <stdlib.h>
 #include <locale.h>
 
-// -------> DimensÃµes da imagem
+// -------> Dimensões da imagem
 #define ALTURA 0
 #define LARGURA 0
 
 // Ponteiro para arquivo
   FILE *img1;
 
-//-------> DefiniÃ§Ã£o das funÃ§Ãµes 
+//-------> Definição das funções
 void init(FILE *img1);
 void copiarImg(FILE *img1, char nome[]);
 
@@ -20,7 +20,7 @@ void girarHorizontal();
 void girarVertical();
 void filtro();
 
-//----------> FunÃ§Ã£o main
+//----------> Função main
 int main(void){
 	setlocale(LC_ALL, "Portuguese");
 	char nome[100];
@@ -70,7 +70,7 @@ int main(void){
     
 }
 
-//-----> FunÃ§Ã£o para verificar erros na inicializaÃ§Ã£o
+//-----> Função para verificar erros na inicialização
 
 void init(FILE *img1){
   if(img1 == NULL){
@@ -80,7 +80,7 @@ void init(FILE *img1){
 }
 
 
-// FunÃ§Ã£o copiar imagem 
+// Função copiar imagem 
 void copiarImg(FILE *img1 , char nome[]){
 //------> Arquivo c
   FILE *img2 = fopen(nome, "w+");
