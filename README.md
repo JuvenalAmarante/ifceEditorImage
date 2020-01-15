@@ -12,7 +12,7 @@
  
  ## Fazendo
   - [ ] Relatório
-  - [ ] Menu do usuário **(Verificar exceção de externsões)**
+  - [ ] Menu do usuário **(Verificar exceção de extensões)**
 
  
  ## Feito
