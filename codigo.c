@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 // -------> Dimensões da imagem
 #define TAM 512
@@ -15,7 +16,7 @@ typedef struct {
 // Ponteiro para arquivo
   FILE *img1;
 
-//-------> Definisão das funções 
+//-------> Definição das funções 
 void init(FILE *img1);
 void salvar(char *nome, pixel imagem[TAM][TAM], char *identificador, int max, int coluna, int linha);
 
@@ -31,12 +32,12 @@ void filtro(pixel imagem[TAM][TAM], int coluna, int linha);
 
 //----------> Função main
 int main(void){
-
-  pixel imagem[TAM][TAM]; //cria uma matriz de pixeis para armazenar a imagem 
-  int max; //o valor máximo de tonalidade de cada pixel
-  int larg, alt; // largura e altura da imagem em pixeis
+  setlocale(LC_ALL, "Portuguese");
+  pixel imagem[TAM][TAM]; // Cria uma matriz de pixeis para armazenar a imagem 
+  int max; // Valor máximo de tonalidade de cada pixel
+  int larg, alt; // Largura e altura da imagem em pixeis
   char copia[100], continua, nome[100], identificador[3];
-//---------> indentificador é o código para saber se a imagem é ascii(P3) ou binária
+//---------> Indentificador é o código para saber se a imagem é ascii(P3) ou binária
 
   short int op, control = 0;
 
@@ -52,7 +53,7 @@ int main(void){
 
     scanf("%hi", &op);
     if(op > 0 && op <=6){
-      printf("\nDigite o nome da imagem:");
+      printf("\nDigite o nome da imagem: ");
       scanf("%s", nome);
       if(strstr(nome, ".png") || strstr(nome, ".ppm") || strstr(nome, ".jpg")) {
         img1 = fopen(nome, "r+");
@@ -60,7 +61,7 @@ int main(void){
         armazenarMatriz(img1, imagem, identificador, &max, &larg, &alt);
         switch(op){
           case 1:
-            printf("\nDigite o nome da copia:");
+            printf("\nDigite o nome da copia: ");
             scanf("%s", copia);
             
             copiarImg(copia, imagem, identificador, max, larg, alt);
@@ -177,9 +178,9 @@ void inverterHorizontal(pixel imagem[TAM][TAM], int coluna, int linha){
 
     for (i = 0; i < linha; i++) {
         for (j = 1; j <= coluna; j++) {
-            img[i][j-1].r = imagem[i][coluna - j].r; //salva em uma matriz do tipo pixel a imagem com suas 
-            img[i][j-1].g = imagem[i][coluna - j].g; //linhas salvas em complementos, isso faz com que a imagem
-            img[i][j-1].b = imagem[i][coluna - j].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+            img[i][j-1].r = imagem[i][coluna - j].r; // Salva em uma matriz do tipo pixel a imagem com suas 
+            img[i][j-1].g = imagem[i][coluna - j].g; // Linhas salvas em complementos, isso faz com que a imagem
+            img[i][j-1].b = imagem[i][coluna - j].b; // Pegue o pixel complementar no seu extremo oposto horizonal 
         }
     }
     //passa a imagem para a matriz original
@@ -198,9 +199,9 @@ void inverterVertical(pixel imagem[TAM][TAM], int coluna, int linha){
 
     for (i = 1; i <= linha; i++) {
         for (j = 0; j < coluna; j++) {
-            img[linha - i][j].r = imagem[i-1][j].r; //salva em uma matriz do tipo pixel a imagem com suas 
-            img[linha - i][j].g = imagem[i-1][j].g; //linhas salvas em complementos, isso faz com que a imagem
-            img[linha - i][j].b = imagem[i-1][j].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+            img[linha - i][j].r = imagem[i-1][j].r; // Salva em uma matriz do tipo pixel a imagem com suas 
+            img[linha - i][j].g = imagem[i-1][j].g; // Linhas salvas em complementos, isso faz com que a imagem
+            img[linha - i][j].b = imagem[i-1][j].b; // Pegue o pixel complementar no seu extremo oposto horizonal 
         }
     }
     //passa a imagem para a matriz original
@@ -219,9 +220,9 @@ void rotacionar90AH(pixel imagem[TAM][TAM], int coluna, int linha){
 
     for (i = 1; i <= linha; i++) {
         for (j = 0; j < coluna; j++) {
-            img[i-1][j].r = imagem[j][coluna - i].r; //salva em uma matriz do tipo pixel a imagem com suas 
-            img[i-1][j].g = imagem[j][coluna - i].g; //linhas salvas em complementos, isso faz com que a imagem
-            img[i-1][j].b = imagem[j][coluna - i].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+            img[i-1][j].r = imagem[j][coluna - i].r; // Salva em uma matriz do tipo pixel a imagem com suas 
+            img[i-1][j].g = imagem[j][coluna - i].g; // Linhas salvas em complementos, isso faz com que a imagem
+            img[i-1][j].b = imagem[j][coluna - i].b; // Pegue o pixel complementar no seu extremo oposto horizonal 
         }
     }
     //passa a imagem para a matriz original
@@ -240,9 +241,9 @@ void rotacionar90H(pixel imagem[TAM][TAM], int coluna, int linha){
 
     for (i = 0; i < linha; i++) {
         for (j = 1; j <= coluna; j++) {
-            img[i][j-1].r = imagem[linha - j][i].r; //salva em uma matriz do tipo pixel a imagem com suas 
-            img[i][j-1].g = imagem[linha - j][i].g; //linhas salvas em complementos, isso faz com que a imagem
-            img[i][j-1].b = imagem[linha - j][i].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+            img[i][j-1].r = imagem[linha - j][i].r; // Salva em uma matriz do tipo pixel a imagem com suas 
+            img[i][j-1].g = imagem[linha - j][i].g; // Linhas salvas em complementos, isso faz com que a imagem
+            img[i][j-1].b = imagem[linha - j][i].b; // Pegue o pixel complementar no seu extremo oposto horizonal 
         }
     }
     //passa a imagem para a matriz original
@@ -282,10 +283,10 @@ void filtro(pixel imagem[TAM][TAM], int coluna, int linha){
     for (i = 0; i < linha; i++) {
         for (j = 0; j < coluna; j++) {
             imagem[i][j].r = (int) ((0.299 * imagem[i][j].r) + (0.587 * imagem[i][j].g) + (0.144 * imagem[i][j].b)); //calcula o valor para conversão
-            imagem[i][j].g = imagem[i][j].r; //copia o valor para
-            imagem[i][j].b = imagem[i][j].r; //todas componentes
+            imagem[i][j].g = imagem[i][j].r; // Copia o valor para
+            imagem[i][j].b = imagem[i][j].r; // Todos os componentes
 
-            //testa o valor para ver se o mesmo não passou de 255
+            // Testar o valor para ver se o mesmo não passou de 255
             if (imagem[i][j].r > 255) {
                 imagem[i][j].r = 255;
                 imagem[i][j].g = 255;
