@@ -2,6 +2,7 @@
 // -------> Bibliotecas
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // -------> Dimensões da imagem
 #define TAM 512
@@ -50,55 +51,58 @@ int main(void){
 
 
     scanf("%hi", &op);
-
-    switch(op){
-      case 1:
-        printf("\nDigite o nome da imagem:");
-        scanf("%s", nome);
+    if(op > 0 && op <=6){
+      printf("\nDigite o nome da imagem:");
+      scanf("%s", nome);
+      if(strstr(nome, ".png") || strstr(nome, ".ppm") || strstr(nome, ".jpg")) {
         img1 = fopen(nome, "r+");
         init(img1);
         armazenarMatriz(img1, imagem, identificador, &max, &larg, &alt);
-        printf("\nDigite o nome da copia:");
-        scanf("%s", copia);
-        
-        copiarImg(copia, imagem, identificador, max, larg, alt);
-        fclose(img1);
-        break;
+        switch(op){
+          case 1:
+            printf("\nDigite o nome da copia:");
+            scanf("%s", copia);
+            
+            copiarImg(copia, imagem, identificador, max, larg, alt);
+            fclose(img1);
+            break;
 
-        case 2:
-        break;
+          case 2:
+            rotacionar90H(imagem, larg, alt);
+            salvar(nome, imagem, identificador, max, larg, alt);
+            break;
 
-        case 3:
-        break;
+          case 3:
+            rotacionar90AH(imagem, larg, alt);
+            salvar(nome, imagem, identificador, max, larg, alt);
+            break;
 
-        case 4:
-        break;
+          case 4:
+            inverterVertical(imagem, larg, alt);
+            salvar(nome, imagem, identificador, max, larg, alt);
+            break;
 
-      case 5:
-        printf("\nDigite o nome da imagem:");
-        scanf("%s", nome);
-        img1 = fopen(nome, "r+");
-        init(img1);
-        armazenarMatriz(img1, imagem, identificador, &max, &larg, &alt);
-        inverterHorizontal(imagem, larg, alt);
-        salvar(nome, imagem, identificador, max, larg, alt);
-        break;
+          case 5:
+            inverterHorizontal(imagem, larg, alt);
+            salvar(nome, imagem, identificador, max, larg, alt);
+            break;
 
-      case 6:
-        printf("\nDigite o nome da imagem:");
-        scanf("%s", nome);
-        img1 = fopen(nome, "r+");
-        init(img1);
-        armazenarMatriz(img1, imagem, identificador, &max, &larg, &alt);
-        filtro(imagem, larg, alt);
-        salvar(nome, imagem, identificador, max, larg, alt);
-        break;
-
-        default:
-          printf("\n Opção inválida!");
-          exit(0);
+          case 6:
+            filtro(imagem, larg, alt);
+            salvar(nome, imagem, identificador, max, larg, alt);
+            break;
           break;
+          default:
+            printf("\n Opção inválida!");
+            exit(0);
+            break;
+        }
+      } else {
+        printf("\n Extensão inválida!");
       }
+    } else {
+      printf("\n Opção inválida!");
+    }
     
     getchar();
     printf("\nDeseja fazer outra operação? (s/n)");
@@ -172,10 +176,10 @@ void inverterHorizontal(pixel imagem[TAM][TAM], int coluna, int linha){
     int i, j;
 
     for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
-            img[i][j].r = imagem[i][coluna - j].r; //salva em uma matriz do tipo pixel a imagem com suas 
-            img[i][j].g = imagem[i][coluna - j].g; //linhas salvas em complementos, isso faz com que a imagem
-            img[i][j].b = imagem[i][coluna - j].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+        for (j = 1; j <= coluna; j++) {
+            img[i][j-1].r = imagem[i][coluna - j].r; //salva em uma matriz do tipo pixel a imagem com suas 
+            img[i][j-1].g = imagem[i][coluna - j].g; //linhas salvas em complementos, isso faz com que a imagem
+            img[i][j-1].b = imagem[i][coluna - j].b; //pegue o pixel complementar no seu extremo oposto horizonal 
         }
     }
     //passa a imagem para a matriz original
@@ -188,6 +192,68 @@ void inverterHorizontal(pixel imagem[TAM][TAM], int coluna, int linha){
     }
 }
 
+void inverterVertical(pixel imagem[TAM][TAM], int coluna, int linha){
+    pixel img[linha][coluna];
+    int i, j;
+
+    for (i = 1; i <= linha; i++) {
+        for (j = 0; j < coluna; j++) {
+            img[linha - i][j].r = imagem[i-1][j].r; //salva em uma matriz do tipo pixel a imagem com suas 
+            img[linha - i][j].g = imagem[i-1][j].g; //linhas salvas em complementos, isso faz com que a imagem
+            img[linha - i][j].b = imagem[i-1][j].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+        }
+    }
+    //passa a imagem para a matriz original
+    for (i = 0; i < linha; i++) {
+        for (j = 0; j < coluna; j++) {
+            imagem[i][j].r = img[i][j].r;
+            imagem[i][j].g = img[i][j].g;
+            imagem[i][j].b = img[i][j].b;   
+        }
+    }
+}
+
+void rotacionar90AH(pixel imagem[TAM][TAM], int coluna, int linha){
+    pixel img[linha][coluna];
+    int i, j;
+
+    for (i = 1; i <= linha; i++) {
+        for (j = 0; j < coluna; j++) {
+            img[i-1][j].r = imagem[j][coluna - i].r; //salva em uma matriz do tipo pixel a imagem com suas 
+            img[i-1][j].g = imagem[j][coluna - i].g; //linhas salvas em complementos, isso faz com que a imagem
+            img[i-1][j].b = imagem[j][coluna - i].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+        }
+    }
+    //passa a imagem para a matriz original
+    for (i = 0; i < linha; i++) {
+        for (j = 0; j < coluna; j++) {
+            imagem[i][j].r = img[i][j].r;
+            imagem[i][j].g = img[i][j].g;
+            imagem[i][j].b = img[i][j].b;   
+        }
+    }
+}
+
+void rotacionar90H(pixel imagem[TAM][TAM], int coluna, int linha){
+    pixel img[linha][coluna];
+    int i, j;
+
+    for (i = 0; i < linha; i++) {
+        for (j = 1; j <= coluna; j++) {
+            img[i][j-1].r = imagem[linha - j][i].r; //salva em uma matriz do tipo pixel a imagem com suas 
+            img[i][j-1].g = imagem[linha - j][i].g; //linhas salvas em complementos, isso faz com que a imagem
+            img[i][j-1].b = imagem[linha - j][i].b; //pegue o pixel complementar no seu extremo oposto horizonal 
+        }
+    }
+    //passa a imagem para a matriz original
+    for (i = 0; i < linha; i++) {
+        for (j = 0; j < coluna; j++) {
+            imagem[i][j].r = img[i][j].r;
+            imagem[i][j].g = img[i][j].g;
+            imagem[i][j].b = img[i][j].b;   
+        }
+    }
+}
 
 void salvar(char *nome, pixel imagem[TAM][TAM], char *identificador, int max, int coluna, int linha){
     FILE *arquivo  = fopen(nome, "w+");
